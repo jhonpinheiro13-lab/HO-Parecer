@@ -25,7 +25,8 @@
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
   body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-       background:#fff;color:var(--tinta);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+       background:var(--fundo,#fff);color:var(--tinta);font-size:15px;line-height:1.55;
+       -webkit-font-smoothing:antialiased;transition:background .18s}
   .wrap{max-width:1280px;margin:0 auto;padding:0 28px 64px}
 
   /* ---------- topo ---------- */
@@ -225,6 +226,17 @@
   .assina .q i:nth-child(3){background:var(--fieg-verde)}
   .assina .q i:nth-child(4){background:var(--fieg-agua)}
   .assina b{color:var(--tinta);font-weight:700}
+  /* escolha do tom de fundo — fica por navegador e não sai na impressão */
+  .tons{margin-left:auto;display:flex;align-items:center;gap:7px}
+  .tons .rot{font-size:11px;color:var(--tinta3)}
+  .tons button{width:19px;height:19px;border-radius:50%;border:1.5px solid var(--linha);
+        cursor:pointer;padding:0;font-size:0;transition:.15s;position:relative}
+  .tons button:hover{transform:scale(1.12);border-color:var(--fieg-bor)}
+  .tons button.on{border-color:var(--fieg);box-shadow:0 0 0 2.5px var(--fieg-luz)}
+  .tons button.on::after{content:'';position:absolute;left:5px;top:2px;width:5px;height:9px;
+        border:solid var(--fieg);border-width:0 2px 2px 0;transform:rotate(42deg)}
+  @media print{.tons{display:none!important} body{background:#fff!important}}
+
 
   /* ---------- modal ---------- */
   .modal{position:fixed;inset:0;background:rgba(21,27,38,.4);display:none;align-items:center;
@@ -323,6 +335,23 @@
   .opc.on .cx{background:var(--acc);border-color:var(--acc)}
   .opc.on .cx::after{content:'';position:absolute;left:4px;top:1px;width:4px;height:8px;
        border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg)}
+  .subopcs{margin:-6px 0 15px;padding:11px 13px;border:1px solid var(--fieg-bor);border-radius:9px;
+       background:var(--fieg-luz)}
+  .subopcs .stit{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;
+       color:var(--fieg-esc);margin-bottom:8px;display:flex;align-items:center;gap:9px}
+  .subopcs .stit .tudo{margin-left:auto;border:1px solid var(--fieg-bor);background:#fff;
+       color:var(--fieg-esc);border-radius:7px;padding:3px 9px;font-size:10.5px;font-weight:700;
+       cursor:pointer;font-family:inherit;text-transform:none;letter-spacing:0}
+  .subopcs .lista{display:flex;gap:6px;flex-wrap:wrap}
+  .sopc{display:flex;align-items:center;gap:6px;border:1px solid var(--fieg-bor);background:#fff;
+       border-radius:7px;padding:5px 9px;font-size:11.5px;color:var(--tinta2);cursor:pointer;
+       font-family:inherit;max-width:100%}
+  .sopc .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:190px}
+  .sopc .cl{font-size:9.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;
+       padding:1px 5px;border-radius:999px;flex:none}
+  .sopc .cl.ins{background:#f1faf3;color:#15682c} .sopc .cl.apo{background:var(--fieg-luz);color:var(--fieg-esc)}
+  .sopc.on{background:var(--fieg);border-color:var(--fieg);color:#fff;font-weight:700}
+  .sopc.on .cl{background:rgba(255,255,255,.22);color:#fff}
   .opc.sem{border-style:dashed}
   .opc.sem.on{background:var(--fieg-luz);border-color:var(--fieg-bor);border-style:solid;
        color:var(--fieg-esc)}
@@ -333,6 +362,7 @@
        font-family:ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;font-size:11.5px;
        line-height:1.68;color:var(--tinta2);white-space:pre-wrap;max-height:260px;overflow:auto}
   .conta{font-size:11px;color:var(--tinta3);margin-top:6px;text-align:right}
+  .conta b.longa{color:var(--erro);font-weight:800;font-size:11.5px}
   .ia-aviso{margin-top:14px;background:var(--alerta-bg);border:1px solid var(--alerta-bor);
        border-radius:9px;padding:10px 13px;font-size:12px;color:var(--alerta);line-height:1.55;
        display:flex;gap:9px}
@@ -383,7 +413,9 @@
       border:1px solid var(--linha);color:var(--tinta2);background:#fff;text-transform:uppercase}
   .pill.ins{border-color:#c2e6cc;background:#f1faf3;color:#15682c}
   .pill.apo{border-color:var(--fieg-bor);background:var(--fieg-luz);color:var(--fieg-esc)}
-  .ncorpo{padding:14px 16px 16px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .ncorpo{padding:14px 16px 16px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+  .ncorpo>.ncol{min-width:0}
+  .nitem{min-width:0}
   @media (max-width:900px){.ncorpo{grid-template-columns:1fr}}
   .ncol{border:1px solid var(--linha);border-radius:11px;background:#fff;padding:12px 13px}
   .ncab{display:flex;align-items:center;gap:8px;margin-bottom:10px}
@@ -399,7 +431,7 @@
       width:22px;height:22px;font-size:12px;line-height:1;cursor:pointer;font-family:inherit;flex:none}
   .nitem .bt:hover{color:var(--tinta);border-color:var(--fieg-bor)}
   .nitem .bt.x:hover{color:var(--erro);border-color:var(--erro-bor)}
-  .nitem textarea{width:100%;border:0;background:transparent;resize:vertical;min-height:74px;
+  .nitem textarea{width:100%;min-width:0;border:0;background:transparent;resize:vertical;min-height:74px;
       font-family:inherit;font-size:12.5px;line-height:1.65;color:var(--tinta);outline:none;
       text-align:justify;padding:0}
   .nvazio{font-size:12px;color:var(--tinta3);padding:14px 4px;text-align:center;line-height:1.6}
@@ -465,7 +497,9 @@
   .notas[open]>summary::before{transform:rotate(90deg)}
   .notas[open]>summary{border-bottom:1px solid var(--linha);background:#fff}
   .notas .cont{margin-left:auto;display:flex;gap:6px;align-items:center}
-  .ncorpo{padding:14px 16px 16px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .ncorpo{padding:14px 16px 16px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+  .ncorpo>.ncol{min-width:0}
+  .nitem{min-width:0}
   @media (max-width:900px){.ncorpo{grid-template-columns:1fr}}
   .nrodape{padding:0 16px 15px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
   .nrodape .obs{font-size:11.5px;color:var(--tinta3);flex:1;min-width:150px}
@@ -524,10 +558,11 @@
       </div></details>
   </div>
 
-  <div class="rodape" id="rodape"></div>
+    <div class="rodape" id="rodape"></div>
   <div class="assina">
     <span class="q"><i></i><i></i><i></i><i></i></span>
     <span>Desenvolvido por <b>Jhonatan Pinheiro</b></span>
+    <span class="tons" id="tons"><span class="rot">Fundo</span></span>
   </div>
 </div>
 
@@ -1199,6 +1234,34 @@ const IA_LIMITE = 3500;          // acima disso o link nao e confiavel: copia e 
 const IA_PADRAO = {agente:1, valores:1, limites:1, pins:1, papo:0, rascunho:0};
 const IA_VAZIO  = {agente:0, valores:0, limites:0, pins:0, papo:0, rascunho:0};
 let iaOpc = Object.assign({}, IA_VAZIO);
+let iaRasc = null;              // Set de chaves 'coluna:índice' escolhidas do rascunho
+function itensRascunho(){
+  const L=[];
+  ['ins','apo'].forEach(m=>notas[m].forEach((n,i)=>{
+    if((n.txt||'').trim()) L.push({m:m,i:i,chave:m+':'+i,agente:n.agente,cen:n.cen,txt:n.txt});
+  }));
+  return L;
+}
+function desenhaRascIA(){
+  const box=document.getElementById('ia-rasc'); if(!box) return;
+  const L=itensRascunho();
+  if(!iaOpc.rascunho || !L.length){ box.innerHTML=''; return; }
+  if(!iaRasc) iaRasc=new Set(L.map(x=>x.chave));
+  const todos = L.every(x=>iaRasc.has(x.chave));
+  box.innerHTML='<div class="subopcs"><div class="stit">Trechos do rascunho ('
+    +L.filter(x=>iaRasc.has(x.chave)).length+' de '+L.length+')'
+    +'<button class="tudo" id="ia-rasc-tudo">'+(todos?'Desmarcar todos':'Marcar todos')+'</button></div>'
+    +'<div class="lista">'+L.map(x=>'<button class="sopc'+(iaRasc.has(x.chave)?' on':'')+'" data-k="'+x.chave+'">'
+      +'<span class="cl '+x.m+'">'+(x.m==='ins'?'INS':'APO')+'</span>'
+      +'<span class="nm" title="'+esc(x.agente)+(x.cen?' · '+esc(x.cen):'')+'">'+esc(x.agente)+'</span></button>').join('')
+    +'</div></div>';
+  box.querySelectorAll('.sopc').forEach(b=>b.onclick=()=>{
+    const k=b.dataset.k; iaRasc.has(k)?iaRasc.delete(k):iaRasc.add(k);
+    desenhaRascIA(); iaPreenchePrevia(); });
+  document.getElementById('ia-rasc-tudo').onclick=()=>{
+    iaRasc = todos ? new Set() : new Set(L.map(x=>x.chave));
+    desenhaRascIA(); iaPreenchePrevia(); };
+}
 const iaSemContexto = () => !Object.keys(iaOpc).some(k=>iaOpc[k]);
 
 const IA_ENUNCIADO =
@@ -1243,8 +1306,14 @@ function montarPergunta(){
     if(x){ P.push(''); P.push('PARECER — INSALUBRIDADE:'); P.push('"'+x+'"'); } }
   if(iaOpc.papo){ const x=textoCol('apo');
     if(x){ P.push(''); P.push('PARECER — APOSENTADORIA ESPECIAL:'); P.push('"'+x+'"'); } }
-  if(iaOpc.rascunho){ const x=(typeof textoCompletoRascunho==='function')?textoCompletoRascunho():'';
-    if(x){ P.push(''); P.push('RASCUNHO EM COMPOSIÇÃO (vários agentes):'); P.push(x); } }
+  if(iaOpc.rascunho){
+    const L=itensRascunho().filter(x=>!iaRasc||iaRasc.has(x.chave));
+    ['ins','apo'].forEach(m=>{
+      const bloco=L.filter(x=>x.m===m).map(x=>x.txt.trim()).filter(Boolean);
+      if(bloco.length){ P.push(''); P.push('RASCUNHO — '+NOME_MODO[m].toUpperCase()+':');
+                        P.push(bloco.join('\n\n')); }
+    });
+  }
   P.push('');
   P.push('PERGUNTA: a conclusão está correta e bem fundamentada? Aponte o que mudaria e por quê.');
   return P.join('\n');
@@ -1263,9 +1332,10 @@ function iaPreenchePrevia(){
   }
   const longo = !vazio && encodeURIComponent(txt).length>IA_LIMITE;
   const ct=document.getElementById('ia-conta');
-  if(ct) ct.textContent = vazio ? 'nenhum dado desta página'
+  if(ct) ct.innerHTML = vazio ? 'nenhum dado desta página'
       : txt.length.toLocaleString('pt-BR')+' caracteres · '+
-        (longo?'longa demais para o link — será copiada':'cabe no link');
+        (longo?'<b class="longa">LONGA DEMAIS PARA O LINK — SERÁ COPIADA, COLE COM CTRL+V</b>'
+              :'cabe no link');
   const bt=document.getElementById('ia-abrir');
   if(bt) bt.innerHTML=IA_ICONE+(vazio?'Abrir o ChatGPT em branco'
       :(longo?'Copiar e abrir o ChatGPT':'Abrir no ChatGPT'));
@@ -1306,6 +1376,7 @@ function abrirIA(comContexto){
      esc(o[1])+'</button>').join('')+
      '<button class="opc sem" id="ia-sem"><span class="cx"></span>'+
      'Sem contexto — não enviar nada desta página</button></div>'+
+   '<div id="ia-rasc"></div>'+
    '<p class="mrot">Pré-visualização</p>'+
    '<div class="previa" id="ia-previa"></div>'+
    '<div class="conta" id="ia-conta"></div>'+
@@ -1321,16 +1392,18 @@ function abrirIA(comContexto){
    'copia o texto e abre o ChatGPT em branco, para você colar com Ctrl+V.</p>';
   document.getElementById('modal').classList.add('on');
   document.getElementById('fab-ia').classList.remove('on');   // nao concorre com o modal
-  iaPreenchePrevia();
+  iaRasc=null; desenhaRascIA(); iaPreenchePrevia();
   document.querySelectorAll('#ia-opcs .opc[data-k]').forEach(b=>b.onclick=()=>{
-    const k=b.dataset.k; iaOpc[k]=iaOpc[k]?0:1; b.classList.toggle('on',!!iaOpc[k]); iaPreenchePrevia();
+    const k=b.dataset.k; iaOpc[k]=iaOpc[k]?0:1; b.classList.toggle('on',!!iaOpc[k]);
+    if(k==='rascunho') desenhaRascIA();
+    iaPreenchePrevia();
   });
   // "sem contexto" e o oposto de tudo: marcar desmarca o resto, desmarcar traz o padrao de volta
   document.getElementById('ia-sem').onclick=()=>{
     iaOpc = Object.assign({}, iaSemContexto()?IA_PADRAO:IA_VAZIO);
     document.querySelectorAll('#ia-opcs .opc[data-k]').forEach(b=>
       b.classList.toggle('on', !!iaOpc[b.dataset.k]));
-    iaPreenchePrevia();
+    desenhaRascIA(); iaPreenchePrevia();
   };
   document.getElementById('ia-cancelar').onclick=fecharIA;
   document.getElementById('ia-copiar').onclick=()=>{
@@ -1432,9 +1505,11 @@ function abreGaveta(qual){
   g.classList.add('on'); document.body.classList.add('g-on');
   document.getElementById('aba-calc').classList.toggle('ativa',qual==='calc');
   pintaGavetaCalc();
+  setTimeout(ajustaNotas,260);
 }
 function fechaGaveta(){
   gaveta=null;
+  setTimeout(ajustaNotas,260);
   document.getElementById('gaveta').classList.remove('on');
   document.body.classList.remove('g-on');
   document.getElementById('aba-calc').classList.remove('ativa');
@@ -1466,6 +1541,15 @@ try{ const s=localStorage.getItem('hop_notas'); if(s){ const o=JSON.parse(s);
      if(o&&o.ins&&o.apo) notas=o; } }catch(e){}
 function salvaNotas(){ try{ localStorage.setItem('hop_notas',JSON.stringify(notas)); }catch(e){} }
 const NOME_MODO={ins:'Insalubridade',apo:'Aposentadoria especial'};
+// cada trecho cresce com o texto; quando a largura muda, tudo é recalculado
+function autoAltura(ta){ ta.style.height='auto'; ta.style.height=Math.max(74,ta.scrollHeight+2)+'px'; }
+function ajustaNotas(){ document.querySelectorAll('#n-corpo textarea').forEach(autoAltura); }
+window.addEventListener('resize',ajustaNotas);
+if(window.ResizeObserver){
+  let larg=0;
+  new ResizeObserver(es=>{ const w=Math.round(es[0].contentRect.width);
+    if(w&&w!==larg){ larg=w; ajustaNotas(); } }).observe(document.getElementById('n-corpo'));
+}
 
 function contaNotas(){ /* o contador vive no cabeçalho do painel */ }
 function incluirNoParecer(){
@@ -1476,6 +1560,7 @@ function incluirNoParecer(){
   const c=cenAtual();
   notas[modo].push({agente:sel.nome, cen:c.sub||'', txt:txt});
   salvaNotas(); pintaGavetaNotas();
+document.getElementById('notas').addEventListener('toggle',()=>{ if(document.getElementById('notas').open) ajustaNotas(); });
   const d=document.getElementById('notas'); d.open=true;
   d.scrollIntoView({block:'nearest',behavior:'smooth'});
   aviso('Levado para o rascunho de '+NOME_MODO[modo].toLowerCase());
@@ -1538,8 +1623,8 @@ function pintaGavetaNotas(){
   const c=document.getElementById('n-corpo');
   c.querySelectorAll('[data-ed]').forEach(ta=>{
     const [m,i]=ta.dataset.ed.split(':');
-    ta.oninput=()=>{ notas[m][+i].txt=ta.value; salvaNotas(); };
-    ta.style.height='auto'; ta.style.height=Math.max(74,ta.scrollHeight)+'px';
+    ta.oninput=()=>{ notas[m][+i].txt=ta.value; salvaNotas(); autoAltura(ta); };
+    autoAltura(ta);
   });
   c.querySelectorAll('[data-tira]').forEach(b=>b.onclick=()=>{
     const [m,i]=b.dataset.tira.split(':'); notas[m].splice(+i,1);
@@ -1571,6 +1656,25 @@ document.getElementById('n-cp-apo').onclick=()=>{
 document.getElementById('n-limpar').onclick=()=>{
   notas={ins:[],apo:[]}; salvaNotas(); contaNotas(); pintaGavetaNotas(); aviso('Rascunho limpo'); };
 pintaGavetaNotas();
+
+/* --------- tom de fundo --------- */
+const TONS=[['branco','#ffffff','Branco'],['cinza','#f4f5f8','Cinza claro'],
+            ['areia','#f7f4ee','Areia'],['gelo','#eef3fb','Azul-gelo FIEG']];
+function aplicaTom(id){
+  const t=TONS.find(x=>x[0]===id)||TONS[0];
+  document.documentElement.style.setProperty('--fundo',t[1]);
+  try{ localStorage.setItem('hop_fundo',t[0]); }catch(e){}
+  document.querySelectorAll('#tons button').forEach(b=>b.classList.toggle('on',b.dataset.t===t[0]));
+}
+(function montaTons(){
+  const c=document.getElementById('tons');
+  c.insertAdjacentHTML('beforeend', TONS.map(x=>
+    `<button data-t="${x[0]}" title="${x[2]}" style="background:${x[1]}">${x[2]}</button>`).join(''));
+  c.querySelectorAll('button').forEach(b=>b.onclick=()=>aplicaTom(b.dataset.t));
+  let salvo='branco';
+  try{ salvo=localStorage.getItem('hop_fundo')||'branco'; }catch(e){}
+  aplicaTom(salvo);
+})();
 
 /* --------- copiar / toast --------- */
 function copiar(txt,msg){

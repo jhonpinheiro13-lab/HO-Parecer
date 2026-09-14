@@ -185,6 +185,27 @@
   .calc-tit{font-size:12px;font-weight:800;color:var(--acc-esc);text-transform:uppercase;
             letter-spacing:.5px;display:flex;align-items:center;gap:8px}
   .calc-grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:9px}
+  /* matriz de probabilidade do ruído */
+  .mtzcab{font-size:11px;color:var(--tinta2);margin-bottom:9px;line-height:1.55}
+  .mtzrol{overflow-x:auto;border:1px solid var(--linha);border-radius:8px}
+  .mtztab{width:100%;border-collapse:collapse;font-size:10.5px;table-layout:auto}
+  .mtztab th{background:var(--fieg-esc);color:#fff;padding:5px 6px;text-align:left;font-size:8.5px;
+       text-transform:uppercase;letter-spacing:.3px;font-weight:800;vertical-align:bottom}
+  .mtztab th small{display:block;font-weight:500;opacity:.72;text-transform:none;letter-spacing:0}
+  .mtztab th.n{text-align:right} .mtztab th.idx{text-align:left}
+  .mtztab td{padding:4px 6px;border-top:1px solid rgba(255,255,255,.75);line-height:1.35}
+  .mtztab td:nth-child(3){white-space:normal}
+  .mtztab td:nth-child(3) small{display:block}
+  .mtztab td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;width:1%}
+  .mtztab td.b{font-weight:800}
+  .mtztab td.idx{font-weight:800;white-space:nowrap;width:1%}
+  .mtztab td small{opacity:.75}
+  .mtztab tr.f1 td{background:#d9ecda;color:#2c6f30}
+  .mtztab tr.f2 td{background:#fbf3a8;color:#7a6810}
+  .mtztab tr.f3 td{background:#fbd6a4;color:#89540f}
+  .mtztab tr.f4 td{background:#f4b1b0;color:#94211d}
+  .mtzpe{font-size:11px;color:var(--tinta2);margin-top:9px;line-height:1.55}
+  .mtzpe b{color:var(--tinta)}
   .cp label{display:block;font-size:11px;font-weight:700;color:var(--tinta2);margin-bottom:3px}
   .cp input,.cp select{width:100%;padding:8px 10px;border:1px solid var(--acc-bor);border-radius:7px;
         font-family:inherit;font-size:13px;background:#fff;color:var(--tinta);outline:none}
@@ -508,6 +529,12 @@
   .gaveta .calc{border:0;background:transparent;margin:0;border-radius:0}
   .gaveta .calc>summary{display:none}
   .gaveta .calc-corpo{padding:0}
+  /* a matriz é um painel à parte: dentro da gaveta ela mantém a moldura e a
+     barra retrátil, porque o título da gaveta já é o da calculadora */
+  .gaveta .calc.mtz{border:1px solid var(--acc-bor);background:var(--acc-luz);
+       border-radius:11px;margin-top:16px}
+  .gaveta .calc.mtz>summary{display:flex;padding:10px 13px}
+  .gaveta .calc.mtz .calc-corpo{padding:12px 13px 13px}
   .notas{margin-top:20px;border:1px solid var(--linha);border-radius:12px;background:#fafbfd;overflow:hidden}
   .notas>summary{list-style:none;cursor:pointer;padding:12px 16px;display:flex;align-items:center;
       gap:10px;font-size:13px;font-weight:800;color:var(--tinta);user-select:none}
@@ -742,7 +769,7 @@
    juridico[] · lt[] · anexoIV[] · metabolismo[] · vestimenta[] · marcos[]
    ========================================================== */
 const BASE = {
- "versao": "5.6",
+ "versao": "5.8",
  "atualizadoEm": "2026-08-27",
  "fonte": "Planilha Engenharia V2 (NR-15 e Decreto) v9 + camada jurídica + NHO-06 · ruído em NEN",
  "agentes": [
@@ -6230,7 +6257,7 @@ const BASE = {
     },
     {
      "sub": "Não enquadra",
-     "ins": "MICRO-ORGANISMOS PATOGÊNICOS: A avaliação do risco biológico é qualitativa, nos termos do Anexo 14 da NR-15. As atividades desenvolvidas não se enquadram nas hipóteses ali relacionadas, razão pela qual não foi caracterizada condição insalubre para os colaboradores deste GES, conforme a NR-15 da Portaria MTb nº 3.214/78.",
+     "ins": "MICRO-ORGANISMOS PATOGÊNICOS: As avaliações qualitativas não identificaram atividades laborais que caracterizem a exposição a agentes biológicos previstos na NR-15 (Anexo 14). Considerando a intermitência da exposição e o fornecimento de EPI que neutralizam esses agentes, não foi caracterizada condição insalubre para os colaboradores deste GES, conforme a NR-15 da Portaria MTb nº 3.214/78.",
      "apo": "MICRO-ORGANISMOS PATOGÊNICOS: Não comprovado o contato habitual e permanente com agentes biológicos infectocontagiosos nas atividades do GES. Dessa forma, não foi caracterizada condição especial de trabalho, conforme o Decreto nº 3.048/1999 (Anexo IV, cód. 3.0.1) e a IN INSS/PRES nº 128/2022.",
      "calc": null
     }
@@ -7155,35 +7182,46 @@ const BASE = {
    "id": "ag185",
    "nome": "PRODUTOS SANEANTES E DOMISSANITÁRIOS",
    "categoria": "quimico",
-   "tipo": "quimico_acgih",
-   "codigo": null,
+   "tipo": "quimico_quali",
+   "codigo": "Não arrolado",
    "cancerigeno": false,
-   "lt": null,
+   "lt": {
+    "anexo": "Sem anexo aplicável",
+    "lt": "Não há limite de tolerância na NR-15 nem limite da ACGIH para a mistura",
+    "na": "—",
+    "grau": "—",
+    "obs": "Os produtos saneantes e domissanitários não são citados na legislação para caracterização de atividades insalubres ou especiais. Quando o laudo isolar um componente com limite próprio, use o agente daquele componente."
+   },
    "cenarios": [
     {
-     "sub": "Abaixo do limite ACGIH",
-     "ins": "PRODUTOS SANEANTES E DOMISSANITÁRIOS: Com base na avaliação dos resultados, verificamos que o agente Produtos Saneantes e Domissanitários apresentou concentração de {{VALOR}}, valor inferior ao limite de exposição estabelecido pela ACGIH. A NR-15 não fixa limite de tolerância para este agente, razão pela qual não foi caracterizada condição insalubre para os colaboradores deste GES, conforme a NR-15 da Portaria MTb nº 3.214/78.",
-     "apo": "PRODUTOS SANEANTES E DOMISSANITÁRIOS: O agente Produtos Saneantes e Domissanitários não está arrolado no Anexo IV do Decreto nº 3.048/1999. Dessa forma, não é considerado para fins de concessão de aposentadoria especial, independentemente da concentração aferida, nos termos do art. 287, § 3º, da IN INSS/PRES nº 128/2022.",
-     "calc": "acgih"
-    },
-    {
-     "sub": "Acima do limite ACGIH",
-     "ins": "PRODUTOS SANEANTES E DOMISSANITÁRIOS: Com base na avaliação dos resultados, verificamos que o agente Produtos Saneantes e Domissanitários apresentou concentração de {{VALOR}}, valor superior ao limite de exposição estabelecido pela ACGIH. Como a NR-15 não fixa limite de tolerância para este agente, a atividade não é caracterizada como insalubre, conforme a NR-15 da Portaria MTb nº 3.214/78, recomendando-se, contudo, a adoção imediata de medidas de controle da exposição.",
-     "apo": "PRODUTOS SANEANTES E DOMISSANITÁRIOS: O agente Produtos Saneantes e Domissanitários não está arrolado no Anexo IV do Decreto nº 3.048/1999. Dessa forma, não é considerado para fins de concessão de aposentadoria especial, independentemente da concentração aferida, nos termos do art. 287, § 3º, da IN INSS/PRES nº 128/2022.",
-     "calc": "acgih"
+     "sub": "Não caracteriza",
+     "calc": null,
+     "ins": "PRODUTOS SANEANTES E DOMISSANITÁRIOS: Os produtos saneantes e domissanitários não são citados na legislação para caracterização de atividades em condições insalubres ou especiais. Entretanto, recomenda-se o controle e o monitoramento da exposição para a garantia da saúde dos trabalhadores expostos.",
+     "apo": "PRODUTOS SANEANTES E DOMISSANITÁRIOS: Os produtos saneantes e domissanitários não são citados na legislação para caracterização de atividades em condições insalubres ou especiais. Entretanto, recomenda-se o controle e o monitoramento da exposição para a garantia da saúde dos trabalhadores expostos."
     },
     {
      "sub": "Não avaliado",
      "calc": null,
-     "ins": "PRODUTOS SANEANTES E DOMISSANITÁRIOS: O agente Produtos Saneantes e Domissanitários não foi avaliado neste levantamento. Não é possível emitir parecer técnico quanto à caracterização do adicional de insalubridade para os colaboradores deste GES, ficando a conclusão condicionada à realização da avaliação.",
-     "apo": "PRODUTOS SANEANTES E DOMISSANITÁRIOS: O agente Produtos Saneantes e Domissanitários não foi avaliado neste levantamento. Não é possível emitir parecer técnico quanto à caracterização da aposentadoria especial para os colaboradores deste GES, ficando a conclusão condicionada à realização da avaliação."
+     "ins": "PRODUTOS SANEANTES E DOMISSANITÁRIOS: O agente não foi avaliado neste levantamento. De todo modo, os produtos saneantes e domissanitários não são citados na legislação para caracterização de atividades em condições insalubres ou especiais.",
+     "apo": "PRODUTOS SANEANTES E DOMISSANITÁRIOS: O agente não foi avaliado neste levantamento. De todo modo, os produtos saneantes e domissanitários não são citados na legislação para caracterização de atividades em condições insalubres ou especiais."
     }
    ],
-   "cenariosApo": null,
+   "cenariosApo": [],
    "linhas": [
     246
    ],
-   "alias": [],
+   "alias": [
+    "saneantes",
+    "domissanitários",
+    "produto de limpeza",
+    "produtos de limpeza",
+    "desinfetante",
+    "detergente",
+    "água sanitária",
+    "hipoclorito de uso doméstico",
+    "material de limpeza",
+    "higienização"
+   ],
    "original": [
     {
      "sub": "NÃO AVALIADO",
@@ -7192,7 +7230,10 @@ const BASE = {
      "apo": "PRODUTOS SANEANTES E DOMISSANITÁRIOS: O agente químico Produtos Saneantes e Domissanitários, não foi avaliado, portanto, não é possível emitir um parecer técnico."
     }
    ],
-   "verbete": null
+   "verbete": null,
+   "padrao": 0,
+   "padraoApo": 0,
+   "indicacao": "Não é fato gerador de insalubridade nem de aposentadoria especial. Se o laudo isolar um componente com limite próprio, avalie pelo agente do componente."
   },
   {
    "id": "ag163",
@@ -16383,6 +16424,7 @@ function abrir(id,i){
   const apoIni = (sel.padraoApo!==undefined && !i) ? sel.padraoApo : cenIni;
   idx={ins:cenIni,apo:apoIni}; valores={}; dadosTexto={};
   unQuartzo='massa'; lqQuartzo=false; semDeteccao=false; calcAberta=false; ultimo={}; cenPorModo=null;
+  igualCalc=null;
   pintar(ACC[sel.categoria]||FIEG);
   document.getElementById('sel-nome').textContent=sel.nome;
   document.querySelectorAll('.rchip').forEach(el=>el.classList.toggle('on',el.dataset.id===id));
@@ -16474,14 +16516,60 @@ function desenhaDireita(){
 // por padrao o parecer sai com XX no lugar de cada valor; a calculadora,
 // quando usada, substitui os XX pelos numeros apurados
 const OPCIONAIS={RESSALVA:1};   // marcador que some do texto quando não há ressalva
-const aplica = t => t.replace(/\{\{(\w+)\}\}/g, (m,k)=>
-  valores[k]!==undefined ? valores[k]
-  : (typeof dadosTexto!=='undefined'&&dadosTexto[k]!==undefined ? dadosTexto[k]
-  : (OPCIONAIS[k] ? '' : 'XX')));
+const aplica = (t,m) => ajustaIgualdade(
+  t.replace(/\{\{(\w+)\}\}/g, (mm,k)=>
+    valores[k]!==undefined ? valores[k]
+    : (typeof dadosTexto!=='undefined'&&dadosTexto[k]!==undefined ? dadosTexto[k]
+    : (OPCIONAIS[k] ? '' : 'XX'))),
+  igualCalc && igualCalc[m||modo]);
+
+/* Quando a calculadora apura um valor exatamente igual ao nível de ação ou ao
+   limite, o trecho comparativo do parecer não pode dizer "inferior" nem
+   "superior". A comparação é feita sobre o valor já formatado, que é o que o
+   leitor vê: se o texto imprime 3,2104 nos dois lugares, são iguais.
+   igualCalc guarda, por coluna, uma lista de {na, lt, marca}; marca restringe
+   a troca à frase daquele parâmetro, para a vibração de corpo inteiro, que
+   julga AREN e VDVR em frases distintas. */
+let igualCalc = null;
+function frasesIgualdade(t, ig){
+  let x = t;
+  if(ig.na){
+    x = x.replace(/inferior ao (n[íi]vel de a[çc][ãa]o[^;.]*?) e ao (limite[^;.]*)/i,
+                  'igual ao $1 e inferior ao $2');
+    x = x.replace(/abaixo do (n[íi]vel de a[çc][ãa]o[^;.]*?) e do (limite[^;.]*)/i,
+                  'igual ao $1 e abaixo do $2');
+    x = x.replace(/superior ao (n[íi]vel de a[çc][ãa]o)/i, 'igual ao $1');
+    x = x.replace(/acima do (n[íi]vel de a[çc][ãa]o)/i, 'igual ao $1');
+    x = x.replace(/Por se situar igual ao n[íi]vel de a[çc][ãa]o/i, 'Por atingir o nível de ação');
+  }
+  if(ig.lt){
+    x = x.replace(/e inferior ao (limite[^;.]*)/i, 'e igual ao $1');
+    x = x.replace(/e abaixo do (limite[^;.]*)/i, 'e igual ao $1');
+    x = x.replace(/superior ao (limite)/i, 'igual ao $1');
+    x = x.replace(/acima do (limite)/i, 'igual ao $1');
+    x = x.replace(/com supera[çc][ãa]o do (limite)/i, 'atingindo o $1');
+  }
+  return x;
+}
+function ajustaIgualdade(t, lista){
+  if(!lista || !lista.length) return t;
+  return lista.reduce((txt,ig)=>{
+    if(!ig || (!ig.na && !ig.lt)) return txt;
+    if(!ig.marca) return frasesIgualdade(txt, ig);
+    return txt.split(/(?<=\.)\s+/)
+              .map(fr => fr.indexOf(ig.marca)>=0 ? frasesIgualdade(fr, ig) : fr)
+              .join(' ');
+  }, t);
+}
+const IG1 = (na,lt) => [{na:na, lt:lt, marca:null}];
 
 /* --------- calculadoras --------- */
 const num = v => { const n=parseFloat(String(v).replace(',','.')); return isFinite(n)?n:null; };
 const fmt = (n,d=1) => n===null||n===undefined?'—':n.toFixed(d).replace('.',',');
+/* O enquadramento é decidido sobre o mesmo número que sai impresso no parecer.
+   Comparar os valores brutos faria o texto e o cenário discordarem: 7,9633 de
+   poeira contra 7,96329 de limite é "abaixo" na conta e "igual" na leitura. */
+const nf = (n,d=1) => n===null||n===undefined?null:parseFloat(n.toFixed(d));
 /* Os relatorios de campo do medidor de IBUTG truncam a segunda casa decimal
    em vez de arredondar (26,2630 -> 26,2). Os limites do calor sao truncados
    aqui pelo mesmo criterio, para o parecer bater com o relatorio anexado.
@@ -16570,7 +16658,45 @@ function calcHTML(tipo,a){
       <button class="btn ghost mini" id="c_clr">Limpar</button>
       ${['calor','silica_resp','silica_total'].includes(tipo)?
         '<button class="btn ghost mini" id="c_exp">Exportar cálculo</button>':''}</div>
-      <div id="c_out"></div></div></details>`;
+      <div id="c_out"></div></div></details>` + (tipo==='ruido'?matrizRuidoHTML():'');
+}
+
+/* Matriz de probabilidade do ruído: a mesma medição lida como dose e como
+   índice de exposição. A dose vem da fórmula do Anexo 1 da NR-15, com
+   incremento de duplicação q = 5 dB, e é calculada aqui em vez de digitada,
+   para a tabela nunca divergir da conta da calculadora ao lado. */
+const MTZ_RUIDO=[65,70,75,78,80,82,83,84,85,87,90,92,95];
+/* arredondamento meio-para-par na primeira casa, o mesmo da tabela de
+   referência: 6,25 vira 6,2 e 37,89 vira 37,9 */
+const arr1 = x => { const y=x*10, f=Math.floor(y), d=y-f;
+  return (d>0.5 ? f+1 : d<0.5 ? f : (f%2===0?f:f+1))/10; };
+function faixaRuido(d){
+  if(d<50)   return ['Abaixo do nível de ação','E &lt; 50% do LT','1 · Baixo','f1'];
+  if(d<100)  return ['Nível de ação','50% ≤ E &lt; 100% do LT','2 · Médio','f2'];
+  if(d<=200) return ['Acima ou igual ao limite','100% ≤ E ≤ 200% do LT','3 · Alto','f3'];
+  return ['Bem acima do limite','E &gt; 200% do LT','4 · Excessivo','f4'];
+}
+function matrizRuidoHTML(){
+  const linhas=MTZ_RUIDO.map(n=>{
+    const d=arr1(100*Math.pow(2,(n-85)/5)), f=faixaRuido(d);
+    return `<tr class="${f[3]}"><td class="n">${n}</td><td class="n b">${fmt(d,1)} %</td>`+
+           `<td>${f[0]} <small>(${f[1]})</small></td><td class="idx">${f[2]}</td></tr>`;
+  }).join('');
+  return `<details class="calc mtz">
+    <summary><span class="calc-tit">Matriz de probabilidade</span>
+      <span class="calc-hint">nível x dose x índice</span></summary>
+    <div class="calc-corpo">
+      <div class="mtzcab">LT = 85 dB(A) · taxa de dobra q = 5 dB (NR-15) ·
+        Dose (%) = 100 × 2<sup>((nível medido − 85) / 5)</sup></div>
+      <div class="mtzrol"><table class="mtztab"><thead><tr>
+        <th class="n">Nível medido<small>NEN, dB(A)</small></th>
+        <th class="n">Dose<small>% do LT</small></th>
+        <th>Faixa quantitativa</th>
+        <th class="idx">Índice de<small>exposição</small></th></tr></thead>
+        <tbody>${linhas}</tbody></table></div>
+      <div class="mtzpe"><b>Regra prática:</b> &lt; 80 dB(A) = índice 1 · 80 até &lt; 85 dB(A) = índice 2 ·
+        85 a 90 dB(A) = índice 3 · &gt; 90 dB(A) = índice 4</div>
+    </div></details>`;
 }
 const tituloCalc = t => ({calor:'IBUTG e taxa metabólica',silica_resp:'sílica, fração respirável',
   silica_total:'sílica, fração total',vibracao_vmb:'vibração de mãos e braços',
@@ -16580,7 +16706,7 @@ const tituloCalc = t => ({calor:'IBUTG e taxa metabólica',silica_resp:'sílica,
 let extraCalc='', semDeteccao=false;
 function rodarCalc(tipo,a){
   const out=document.getElementById('c_out'); let linhas=[], ver=null, vers=null, cen=null, cenApo;
-  extraCalc=''; semDeteccao=false;
+  extraCalc=''; semDeteccao=false; igualCalc=null;
   if(tipo==='calor'){
     const ib=num(v('c_ibutg')); let M=num(v('c_m')); const sel2=v('c_ativ');
     if(!M && sel2) M=num(sel2);
@@ -16592,9 +16718,12 @@ function rodarCalc(tipo,a){
             ['Nível de ação',fmt(na)+' °C'],['Limite de exposição ocupacional',fmt(leo)+' °C'],
             ['Valor teto (aclimatado)',fmt(teto)+' °C']];
     valores={IBUTG:fmt(ibc),M:String(M),NA:fmt(na),LEO:fmt(leo)};
-    if(ibc>leo){ cen=2; ver=['v-no','Acima do limite de exposição ocupacional: condição insalubre, grau médio (20%).'];
-      if(ibc>teto) ver=['v-no','Acima do valor teto: exposição não admitida sem medida de controle imediata.'];
-    } else if(ibc>na){ cen=1; ver=['v-at','Acima do nível de ação e abaixo do limite: salubre, com medidas de controle obrigatórias.']; }
+    const A=nf(ibc), L=nf(leo), N=nf(na), T=nf(teto);
+    const igLEO=A===L, igNA=A===N;
+    igualCalc={ins:IG1(igNA,igLEO)}; igualCalc.apo=igualCalc.ins;
+    if(A>=L){ cen=2; ver=['v-no',(igLEO?'Igual ao':'Acima do')+' limite de exposição ocupacional: condição insalubre, grau médio (20%).'];
+      if(A>=T) ver=['v-no',(A===T?'Igual ao':'Acima do')+' valor teto: exposição não admitida sem medida de controle imediata.'];
+    } else if(A>=N){ cen=1; ver=['v-at',(igNA?'Igual ao nível de ação':'Acima do nível de ação')+' e abaixo do limite: salubre, com medidas de controle obrigatórias.']; }
     else { cen=0; ver=['v-ok','Abaixo do nível de ação: condição salubre.']; }
   } else if(tipo.startsWith('silica')){
     const resp=tipo==='silica_resp', fr=resp?'respirável':'total';
@@ -16634,8 +16763,11 @@ function rodarCalc(tipo,a){
       valores={VALOR:fmt(c,d),QUARTZO:fmt(q,d),LT:fmt(lt,d),NA:fmt(na,d)};
       if(vlq!==null) valores.LQ=fmt(vlq,d);
       extraCalc=confereLaudo(lt,d,resp,q)+(unQuartzo==='pct'&&q<0.1?avisoUnidade(qin,c,resp,d):'');
-      if(c>lt){cen=2;ver=['v-no','Acima do limite de tolerância: insalubre em grau máximo (40%).'];}
-      else if(c>na){cen=1;ver=['v-at','Acima do nível de ação e abaixo do limite: salubre, com medidas de controle.'];}
+      const C=nf(c,d), L=nf(lt,d), N=nf(na,d);
+      const igLT=C===L, igNA=C===N;
+      igualCalc={ins:IG1(igNA,igLT)}; igualCalc.apo=igualCalc.ins;
+      if(C>=L){cen=2;ver=['v-no',(igLT?'Igual ao':'Acima do')+' limite de tolerância: insalubre em grau máximo (40%).'];}
+      else if(C>=N){cen=1;ver=['v-at',(igNA?'Igual ao nível de ação':'Acima do nível de ação')+' e abaixo do limite: salubre, com medidas de controle.'];}
       else {cen=0;ver=['v-ok','Abaixo do nível de ação: condição salubre.'];}
     }
   } else if(tipo==='ruido'){
@@ -16645,8 +16777,15 @@ function rodarCalc(tipo,a){
     if(nen!==null){ valores.NEN=fmt(nen,1); valores.VALOR=fmt(nen,1); }
     if(dose!==null) valores.DOSE=fmt(dose,1);
     // insalubridade: a dose é o critério do Anexo 1; sem dose, o NEN responde pelas duas
-    cen    = dose!==null ? (dose>=100?2:dose>=50?1:0) : (nen>85?2:nen>80?1:0);
-    cenApo = nen!==null ? (nen>85?2:0) : cen;
+    const Dz=nf(dose,1), Nn=nf(nen,1);
+    cen    = Dz!==null ? (Dz>=100?2:Dz>=50?1:0) : (Nn>=85?2:Nn>=80?1:0);
+    cenApo = Nn!==null ? (Nn>=85?2:0) : cen;
+    // a insalubridade é julgada pela dose quando ela existe; a aposentadoria, sempre pelo NEN
+    igualCalc={
+      ins: IG1(Dz!==null ? Dz===50  : Nn===80,
+               Dz!==null ? Dz===100 : Nn===85),
+      apo: IG1(false, Nn===85)
+    };
     linhas=[['§','Medição'],
             ['NEN',nen===null?'não informado':fmt(nen,1)+' dB(A)'],
             ['Dose',dose===null?'não informada':fmt(dose,1)+' %'],
@@ -16675,9 +16814,14 @@ function rodarCalc(tipo,a){
     const ar=num(v('c_aren')), vd=vmb?null:num(v('c_vdvr'));
     if(ar===null && vd===null) return aviso(vmb?'Informe a AREN.':'Informe a AREN e/ou o VDVR.');
     const lt=vmb?5.0:1.1, na=vmb?2.5:0.5, ltv=21.0, nav=9.1;
-    const faixa=(x,n2,l2)=> x===null?null:(x>l2?2:(x>=n2?1:0));
+    const faixa=(x,n2,l2)=> x===null?null:(nf(x,2)>=l2?2:(nf(x,2)>=n2?1:0));
     const ROT=['Aceitável','Região de incerteza (acima do nível de ação)','Acima do limite de exposição'];
     const fa=faixa(ar,na,lt), fv=faixa(vd,nav,ltv);
+    // AREN e VDVR aparecem em frases distintas; a marca limita a troca à frase certa
+    const ig=[];
+    if(ar!==null) ig.push({na:nf(ar,2)===na, lt:nf(ar,2)===lt, marca:vmb?null:'AREN'});
+    if(vd!==null) ig.push({na:nf(vd,2)===nav, lt:nf(vd,2)===ltv, marca:'VDVR'});
+    igualCalc={ins:ig}; igualCalc.apo=ig;
     valores={};
     if(ar!==null) valores.AREN=fmt(ar,2);
     if(vd!==null) valores.VDVR=fmt(vd,2);
@@ -16702,8 +16846,11 @@ function rodarCalc(tipo,a){
     linhas=[['Concentração',fmt(c,3)]];
     if(lt!==null){ const na=lt/2;
       linhas.push(['Limite aplicável',fmt(lt,3)],['Nível de ação',fmt(na,3)]);
-      if(c>lt){cen=2;ver=['v-no','Acima do limite aplicável.'];}
-      else if(c>na){cen=1;ver=['v-at','Acima do nível de ação e abaixo do limite.'];}
+      const C=nf(c,3), L=nf(lt,3), N=nf(na,3);
+      const igLT=C===L, igNA=C===N;
+      igualCalc={ins:IG1(igNA,igLT)}; igualCalc.apo=igualCalc.ins;
+      if(C>=L){cen=2;ver=['v-no',(igLT?'Igual ao':'Acima do')+' limite aplicável.'];}
+      else if(C>=N){cen=1;ver=['v-at',(igNA?'Igual ao nível de ação':'Acima do nível de ação')+' e abaixo do limite.'];}
       else {cen=0;ver=['v-ok','Abaixo do nível de ação.'];}
     }
   }
@@ -17232,7 +17379,7 @@ function montarPergunta(){
   // o texto da coluna aberta vem da caixa (com as edições); o da outra, do modelo preenchido
   const textoCol = m => {
     if(m===modo){ const ta=document.getElementById('parecer'); if(ta) return ta.value; }
-    const cm=iaCenario(m); return aplica(cm[m]||'');
+    const cm=iaCenario(m); return aplica(cm[m]||'', m);
   };
   if(iaOpc.pins){ const x=textoCol('ins');
     if(x){ P.push(''); P.push('PARECER DE INSALUBRIDADE:'); P.push('"'+x+'"'); } }
@@ -17578,7 +17725,7 @@ function comporAmbos(){
   let n=0;
   ['ins','apo'].forEach(m=>{
     const L=listaCen(sel,m), c=L[Math.min(idx[m],L.length-1)]||{};
-    const txt = (m===modo && editado) ? editado : aplica(c[m]||'').trim();
+    const txt = (m===modo && editado) ? editado : aplica(c[m]||'', m).trim();
     if(txt){ notas[m].push({agente:sel.nome, cen:c.sub||'', txt:txt,
              cod:sel.codigo||'', enq:enquadra(c.sub)}); n++; }
   });

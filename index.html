@@ -824,7 +824,7 @@
    juridico[] · lt[] · anexoIV[] · metabolismo[] · vestimenta[] · marcos[]
    ========================================================== */
 const BASE = {
- "versao": "6.7",
+ "versao": "6.8",
  "atualizadoEm": "2026-08-27",
  "fonte": "Planilha Engenharia V2 (NR-15 e Decreto) v9 + camada jurídica + NHO-06 · ruído em NEN",
  "agentes": [
@@ -10139,7 +10139,7 @@ const BASE = {
     "lt": "85 dB(A) (jornada 8h; comparação por NEN, q=5)",
     "na": "80 dB(A) (dose 50%, NR-01/NR-09)",
     "grau": "Médio (20%)",
-    "obs": "Regra de dose: C1/T1+…+Cn/Tn ≤ 1. A cada +5 dB(A) o tempo permitido cai à metade."
+    "obs": "Regra de dose: C1/T1+…+Cn/Tn ≤ 1. A cada +5 dB(A) o tempo permitido cai à metade. Jornada diversa de 8 h: a insalubridade é julgada pelo LAVG do Dosímetro 02 (q = 5), não pelo NEN; a aposentadoria continua pelo NEN."
    },
    "cenarios": [
     {
@@ -10159,6 +10159,27 @@ const BASE = {
      "ins": "RUÍDO: Com base na avaliação dos resultados, verificamos que o agente Ruído apresentou nível de exposição normalizado (NEN) de {{NEN}} dB(A) e dose de {{DOSE}}%, valor superior ao limite de tolerância de 85 dB(A) estabelecido pela NR-15 (Anexo 1). Dessa forma, foi caracterizada condição insalubre em grau médio (20%) para os colaboradores deste GES, conforme a NR-15 da Portaria MTb nº 3.214/78.\n\nSe adotadas medidas de proteção eficazes contra o agente, tais como medidas de ordem geral que mantenham a exposição dentro do limite de tolerância ou o fornecimento e a fiscalização do uso de protetor auditivo adequado ao nível medido, nos termos da NR-06, a insalubridade é neutralizada e a atividade passa a ser considerada salubre, cessando o adicional, nos termos dos itens 15.4 e 15.4.1 da NR-15 e do art. 194 da CLT.",
      "apo": "RUÍDO: Com base na avaliação dos resultados, verificamos que o agente Ruído apresentou nível de exposição normalizado (NEN) de {{NEN}} dB(A), valor superior ao limite de tolerância de 85 dB(A), de forma habitual e permanente. Dessa forma, foi caracterizada condição especial de trabalho para os colaboradores deste GES, com enquadramento no código 2.0.1 do Anexo IV do Decreto nº 3.048/1999, nos termos do art. 287 da IN INSS/PRES nº 128/2022. Registra-se que o fornecimento de EPI não descaracteriza a especialidade quanto ao ruído (STF, ARE 664.335, Tema 555, e Súmula 9 da TNU).",
      "calc": "ruido"
+    },
+    {
+     "sub": "LAVG · abaixo do nível de ação",
+     "calc": "ruido",
+     "soIns": true,
+     "ins": "RUÍDO: Com base na avaliação dos resultados, verificamos que o agente Ruído apresentou nível médio de exposição (LAVG) de {{LAVG}} dB(A), aferido em jornada de {{JORNADA}}, valor inferior ao nível de ação de 80 dB(A) e ao limite de tolerância de 85 dB(A) estabelecido pela NR-15 (Anexo 1). Adotou-se o LAVG por se tratar de jornada diversa de 8 horas, situação em que a normalização para 8 horas não representa a exposição real do trabalhador. Dessa forma, não foi caracterizada condição insalubre para os colaboradores deste GES, conforme a NR-15 da Portaria MTb nº 3.214/78.",
+     "apo": "RUÍDO: Com base na avaliação dos resultados, verificamos que o agente Ruído apresentou nível de exposição normalizado (NEN) de {{NEN}} dB(A), valor inferior ao limite de tolerância de 85 dB(A). Dessa forma, não foi caracterizada condição especial de trabalho para os colaboradores deste GES, conforme os critérios estabelecidos no Decreto nº 3.048/1999 (Anexo IV, cód. 2.0.1) e na IN INSS/PRES nº 128/2022."
+    },
+    {
+     "sub": "LAVG · acima do nível de ação",
+     "calc": "ruido",
+     "soIns": true,
+     "ins": "RUÍDO: Com base na avaliação dos resultados, verificamos que o agente Ruído apresentou nível médio de exposição (LAVG) de {{LAVG}} dB(A), aferido em jornada de {{JORNADA}}, valor superior ao nível de ação de 80 dB(A) e inferior ao limite de tolerância de 85 dB(A) estabelecido pela NR-15 (Anexo 1). Adotou-se o LAVG por se tratar de jornada diversa de 8 horas, situação em que a normalização para 8 horas não representa a exposição real do trabalhador. Dessa forma, não foi caracterizada condição insalubre para os colaboradores deste GES, permanecendo obrigatória a adoção de medidas de controle, nos termos da NR-01 e da NR-09.",
+     "apo": "RUÍDO: Com base na avaliação dos resultados, verificamos que o agente Ruído apresentou nível de exposição normalizado (NEN) de {{NEN}} dB(A), valor inferior ao limite de tolerância de 85 dB(A). Dessa forma, não foi caracterizada condição especial de trabalho para os colaboradores deste GES, conforme os critérios estabelecidos no Decreto nº 3.048/1999 (Anexo IV, cód. 2.0.1) e na IN INSS/PRES nº 128/2022."
+    },
+    {
+     "sub": "LAVG · acima do limite de tolerância",
+     "calc": "ruido",
+     "soIns": true,
+     "ins": "RUÍDO: Com base na avaliação dos resultados, verificamos que o agente Ruído apresentou nível médio de exposição (LAVG) de {{LAVG}} dB(A), aferido em jornada de {{JORNADA}}, valor superior ao limite de tolerância de 85 dB(A) estabelecido pela NR-15 (Anexo 1). Adotou-se o LAVG por se tratar de jornada diversa de 8 horas, situação em que a normalização para 8 horas não representa a exposição real do trabalhador. Dessa forma, foi caracterizada condição insalubre em grau médio (20%) para os colaboradores deste GES, conforme o Anexo 1 da NR-15 da Portaria MTb nº 3.214/78.",
+     "apo": "RUÍDO: Com base na avaliação dos resultados, verificamos que o agente Ruído apresentou nível de exposição normalizado (NEN) de {{NEN}} dB(A), valor superior ao limite de tolerância de 85 dB(A), de forma habitual e permanente. Dessa forma, foi caracterizada condição especial de trabalho para os colaboradores deste GES, com enquadramento no código 2.0.1 do Anexo IV do Decreto nº 3.048/1999, nos termos do art. 287 da IN INSS/PRES nº 128/2022. Registra-se que o fornecimento de EPI não descaracteriza a especialidade quanto ao ruído (STF, ARE 664.335, Tema 555, e Súmula 9 da TNU)."
     },
     {
      "sub": "Exposição eventual",
@@ -19630,7 +19651,11 @@ let idx={ins:0,apo:0};
 // o enquadramento pode divergir entre as colunas (ruído: dose x NEN)
 let cenPorModo=null;
 // lista de cenários da coluna ativa
-const listaCen = (a,m) => (m==='apo' && a.cenariosApo && a.cenariosApo.length) ? a.cenariosApo : (a.cenarios||[]);
+/* soIns marca o cenário que só existe na coluna de insalubridade (o LAVG do
+   ruído, por exemplo): a coluna previdenciária não o oferece. Os índices de
+   cada coluna referem-se à lista daquela coluna. */
+const listaCen = (a,m) => (m==='apo' && a.cenariosApo && a.cenariosApo.length) ? a.cenariosApo
+                        : (a.cenarios||[]).filter(c=>m!=='apo' || !c.soIns);
 const cenAtual = () => { const L=listaCen(sel,modo); return L[Math.min(idx[modo],L.length-1)]||{}; };
 
 const ITENS=[];
@@ -20111,7 +20136,17 @@ function calcHTML(tipo,a){
       <div class="calc-nota">Os dois valores são os que você apurou. Não há conversão automática entre eles.
       A insalubridade é julgada pela dose e a aposentadoria pelo NEN, e as duas podem divergir
       legitimamente: dose abaixo de 100% com NEN acima de 85 dB(A), por exemplo.
-      Informando só um, ele responde pelas duas colunas.</div>`;
+      Informando só um, ele responde pelas duas colunas.</div>
+      <div class="cbloco">
+        <div class="cbh"><span class="ctag">Jornada diversa de 8 h</span>
+          <em>só para o laudo de insalubridade</em></div>
+        <div class="calc-grade">
+          ${campo('c_lavg','LAVG do Dosímetro 02, q = 5 (dB(A))','ex.: 83,1')}
+          ${campo('c_jorn','Jornada amostrada','ex.: 6 horas · 12 h · 07:20')}</div>
+        <div class="cdica">Preenchidos os dois, a insalubridade é julgada pelo LAVG, o nível médio
+        do período efetivamente amostrado: o NEN normaliza para 8 horas, e essa normalização não
+        representa a exposição real quando a jornada é outra. A aposentadoria continua pelo NEN,
+        que é o critério do LTCAT.</div></div>`;
   } else if(tipo==='vibracao_vmb'){
     corpo=`<div class="calc-grade">${campo('c_aren','AREN (m/s²)','ex.: 3,8')}</div>
       <div class="calc-nota">NHO-10: nível de ação 2,5 m/s² · limite de exposição 5,0 m/s².</div>`;
@@ -20269,23 +20304,39 @@ function rodarCalc(tipo,a){
     }
   } else if(tipo==='ruido'){
     const nen=num(v('c_nen')), dose=num(v('c_dose'));
-    if(nen===null&&dose===null) return aviso('Informe o NEN ou a dose.');
+    const lavg=num(v('c_lavg')), jorn=digitado('c_jorn'), hJorn=horasJornada(jorn);
+    if(nen===null&&dose===null&&lavg===null) return aviso('Informe o NEN, a dose ou o LAVG.');
+    // LAVG só responde com a jornada informada e diversa de 8 h
+    if(lavg!==null && !jorn) return aviso('Informe a jornada amostrada para usar o LAVG.');
+    const usaLavg = lavg!==null && !!jorn && hJorn!==8;
+    if(lavg!==null && hJorn===8) extraCalc='<div class="cavis">Jornada de 8 horas: o critério é o NEN, '+
+      'e o LAVG informado não foi usado. Os cenários LAVG são para jornada diversa de 8 h.</div>';
+    if(usaLavg && nen===null && dose===null && !extraCalc)
+      extraCalc='<div class="cavis">Sem NEN nem dose, a coluna de aposentadoria ficou no cenário em que estava: '+
+        'o LTCAT decide pelo NEN, não pelo LAVG.</div>';
     valores={};
     if(nen!==null){ valores.NEN=digitado('c_nen'); valores.VALOR=digitado('c_nen'); }
     if(dose!==null) valores.DOSE=digitado('c_dose');
+    if(lavg!==null){ valores.LAVG=digitado('c_lavg'); valores.JORNADA=jorn; }
     // insalubridade: a dose é o critério do Anexo 1; sem dose, o NEN responde pelas duas
-    const Dz=nf(dose,1), Nn=nf(nen,1);
-    cen    = Dz!==null ? (Dz>=100?2:Dz>=50?1:0) : (Nn>=85?2:Nn>=80?1:0);
+    const Dz=nf(dose,1), Nn=nf(nen,1), Lv=nf(lavg,1);
+    cen    = Dz!==null ? (Dz>=100?2:Dz>=50?1:0) : Nn!==null ? (Nn>=85?2:Nn>=80?1:0) : null;
     cenApo = Nn!==null ? (Nn>=85?2:0) : cen;
+    if(usaLavg) cen = indiceCen(['LAVG · abaixo do nível de ação','LAVG · acima do nível de ação',
+                                 'LAVG · acima do limite de tolerância'][Lv>=85?2:Lv>=80?1:0]);
+    if(cen===null) cen=0;
     // a insalubridade é julgada pela dose quando ela existe; a aposentadoria, sempre pelo NEN
     igualCalc={
-      ins: IG1(Dz!==null ? Dz===50  : Nn===80,
-               Dz!==null ? Dz===100 : Nn===85),
+      ins: usaLavg ? IG1(Lv===80, Lv===85)
+                   : IG1(Dz!==null ? Dz===50  : Nn===80,
+                         Dz!==null ? Dz===100 : Nn===85),
       apo: IG1(false, Nn===85)
     };
     linhas=[['§','Medição'],
             ['NEN',nen===null?'não informado':fmt(nen,1)+' dB(A)'],
             ['Dose',dose===null?'não informada':fmt(dose,1)+' %'],
+            ...(lavg!==null?[['LAVG (Dos. 02, q = 5)',fmt(lavg,1)+' dB(A)'],
+                             ['Jornada amostrada',jorn+(hJorn!==null?' ('+fmtHoras(hJorn)+')':'')]]:[]),
             ['§','Insalubridade (NR-15, Anexo 1)'],
             ['Nível de ação','80 dB(A), dose 50%'],
             ['Limite de tolerância','85 dB(A), dose 100%'],
@@ -20294,12 +20345,17 @@ function rodarCalc(tipo,a){
     const TI=[['v-ok','Abaixo do nível de ação: condição salubre.'],
               ['v-at','Acima do nível de ação e abaixo do limite: salubre, com medidas de controle obrigatórias.'],
               ['v-no','Acima do limite de tolerância: insalubre em grau médio (20%).']];
+    const ti = usaLavg
+      ? (f=>[TI[f][0], 'Pelo LAVG, jornada diversa de 8 h. '+TI[f][1]])(Lv>=85?2:Lv>=80?1:0)
+      : TI[cen];
     const ta = nen===null
-      ? ['v-at','NEN não informado. Adotado o mesmo cenário da insalubridade; informe o NEN para o parecer ficar completo.']
+      ? (cenApo===null||cenApo===undefined
+          ? ['v-at','NEN não informado. A coluna de aposentadoria não foi alterada; informe o NEN para o parecer ficar completo.']
+          : ['v-at','NEN não informado. Adotado o mesmo cenário da insalubridade; informe o NEN para o parecer ficar completo.'])
       : (cenApo===2 ? ['v-no','NEN acima de 85 dB(A): atividade especial, código 2.0.1 do Anexo IV.']
                     : ['v-ok','NEN igual ou inferior a 85 dB(A): não enquadra como atividade especial.']);
-    vers=[['Insalubridade · trabalhista',TI[cen]],['Aposentadoria especial · previdenciário',ta]];
-    if(nen!==null&&dose!==null&&(cenApo===2)!==(cen===2))
+    vers=[['Insalubridade · trabalhista',ti],['Aposentadoria especial · previdenciário',ta]];
+    if(!usaLavg&&nen!==null&&dose!==null&&(cenApo===2)!==(cen===2))
       ver=['v-at','As duas colunas ficaram em enquadramentos diferentes: '+
                   (cenApo===2?'NEN acima de 85 dB(A) com dose abaixo de 100%'
                              :'dose acima de 100% com NEN igual ou inferior a 85 dB(A)')+
@@ -20372,8 +20428,10 @@ function rodarCalc(tipo,a){
   if(cen!==null){
     if(cenApo===undefined) cenApo=cen;
     // cancerígeno: o eixo previdenciário é presença do agente, não limite —
-    // valor informado significa "detectado"; a habitualidade continua sendo juízo do técnico
-    if(sel.cenariosApo&&sel.cenariosApo.length) cenApo = semDeteccao ? 0 : 1;
+    // valor informado significa "detectado"; a habitualidade continua sendo juízo do técnico.
+    // Lista por natureza do agente (habitual e permanente / intermitente) não é movida pelo cálculo.
+    const La=sel.cenariosApo||[];
+    if(La.length) cenApo = La.some(c=>/detectad/i.test(c.sub||'')) ? (semDeteccao ? 0 : 1) : idx.apo;
     cenPorModo={ins:cen,apo:cenApo};
     ['ins','apo'].forEach(m=>{ if(listaCen(sel,m)[cenPorModo[m]]) idx[m]=cenPorModo[m]; });
   }
@@ -20393,6 +20451,21 @@ function casasSilica(){
   return Math.min(5, Math.max(4, casasDe(v('c_conc')), casasDe(v('c_q'))));
 }
 // índice do cenário pelo rótulo, para não depender da ordem da base
+/* Lê a jornada como o laudo a escreve: "6 horas", "12 h", "07:20", "7h20",
+   "440 min". Devolve horas decimais, ou null se não entender. */
+function horasJornada(t){
+  const x=String(t||'').trim().toLowerCase().replace(',','.');
+  if(!x) return null;
+  let m=x.match(/^(\d{1,2})\s*[:h]\s*(\d{1,2})\b/);          // 07:20 · 7h20
+  if(m) return +m[1]+(+m[2])/60;
+  m=x.match(/^(\d+(?:\.\d+)?)\s*(min|minutos?)\b/);            // 440 min
+  if(m) return +m[1]/60;
+  m=x.match(/^(\d+(?:\.\d+)?)\s*(h|hs|hora|horas)?\b/);        // 6 horas · 12 h · 8
+  if(m) return +m[1];
+  return null;
+}
+const fmtHoras = h => { const H=Math.floor(h), M=Math.round((h-H)*60);
+  return M ? `${H} h ${String(M).padStart(2,'0')} min` : `${H} h`; };
 function indiceCen(sub){
   const L=(sel&&sel.cenarios)||[];
   const i=L.findIndex(c=>c.sub===sub);
@@ -20468,7 +20541,7 @@ function restaura(tipo){
 }
 function guardaCampos(){
   ultimo={};
-  ['c_ibutg','c_m','c_ativ','c_vest','c_conc','c_q','c_lqv','c_ltlaudo','c_aren','c_vdvr','c_lt','c_dose','c_nen'].forEach(id=>{
+  ['c_ibutg','c_m','c_ativ','c_vest','c_conc','c_q','c_lqv','c_ltlaudo','c_aren','c_vdvr','c_lt','c_dose','c_nen','c_lavg','c_jorn'].forEach(id=>{
     const e=document.getElementById(id); if(e) ultimo[id]=e.value;
   });
 }
@@ -21274,13 +21347,14 @@ const ROT_CAMPO={
   NA:        ['Nível de ação',''],
   IBUTG:     ['IBUTG (°C)',''], M:['Taxa metabólica (W)',''], LEO:['Limite de exposição (°C)',''],
   NEN:       ['NEN (dB(A))',''], DOSE:['Dose (%)',''],
+  LAVG:      ['LAVG (dB(A))','Dosímetro 02, q = 5'], JORNADA:['Jornada amostrada','ex.: 6 horas'],
   AREN:      ['AREN (m/s²)',''], VDVR:['VDVR (m/s^1,75)',''],
   PB:        ['Chumbo (mg/m³)','resultado do laudo, como Pb'],
   MN:        ['Manganês (mg/m³)','resultado do laudo, fumos de manganês']
 };
 const CAMPOS_CALC={calor:['IBUTG','M','NA','LEO'],
   silica_resp:['VALOR','QUARTZO','LT','NA'], silica_total:['VALOR','QUARTZO','LT','NA'],
-  ruido:['NEN','DOSE','VALOR'], vibracao_vci:['AREN','VDVR'], vibracao_vmb:['AREN'],
+  ruido:['NEN','DOSE','VALOR','LAVG','JORNADA'], vibracao_vci:['AREN','VDVR'], vibracao_vmb:['AREN'],
   quimico:['VALOR','LT','NA'], acgih:['VALOR','LT','NA']};
 // os XX que sobram: tudo que o texto do agente pede e a calculadora não preenche
 function camposDoAgente(){
